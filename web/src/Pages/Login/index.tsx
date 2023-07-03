@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import Botao from "../../components/Botao";
 import logo from '../../components/Cabecalho/assets/logo.png';
+import usePost from "../../usePost";
+import autenticaStore from "../../stores/autentica.store";
 
 const Imagem = styled.img`
   padding: 2em 0;
@@ -37,21 +39,63 @@ const Formulario = styled.form`
 const BotaoCustomizado = styled(Botao)`
   width: 50%;
 `
-export default function Login() {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+interface ILogin {
+  email: string,
+  senha: string,
+}
 
-    return (
-        <>
-            <Imagem src={logo} alt="Logo da Voll" />
-            <Titulo>Faça login em sua conta</Titulo>
-            <Formulario>
-                <CampoDigitacao tipo="email" label="Email" value={email} placeholder="Insira seu endereço de email" onChange={setEmail} />
-                <CampoDigitacao tipo="password" label="Senha" value={senha} placeholder="Insira sua senha" onChange={setSenha} />
-                <BotaoCustomizado type="submit">Entrar</BotaoCustomizado>
-            </Formulario>
-            <Paragrafo>Esqueceu sua senha?</Paragrafo>
-            <ParagrafoCadastro>Ainda não tem conta? <LinkCustomizado to="/cadastro">Faça seu cadastro!</LinkCustomizado></ParagrafoCadastro>
-        </>
-    )
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const { cadastrarDados, erro, sucesso, resposta } = usePost();
+
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const usuario: ILogin = {
+      email: email,
+      senha: senha,
+    }
+
+    try {
+      cadastrarDados({ url: "auth/login", dados: usuario })
+      autenticaStore.login({ email: email, token: resposta })
+    } catch (erro) {
+      erro && alert('Não foi possivel fazer login')
+    }
+
+  }
+
+  return (
+    <>
+      <Imagem src={logo} alt="Logo da Voll" />
+      <Titulo>Faça login em sua conta</Titulo>
+      <Formulario
+        onSubmit={handleLogin}
+      >
+        <CampoDigitacao
+          tipo="email"
+          label="Email"
+          value={email}
+          placeholder="Insira seu endereço de email"
+          onChange={setEmail}
+        />
+        <CampoDigitacao
+          tipo="password"
+          label="Senha"
+          value={senha}
+          placeholder="Insira sua senha"
+          onChange={setSenha}
+        />
+        <BotaoCustomizado
+          type="submit"
+        >
+          Entrar
+        </BotaoCustomizado>
+      </Formulario>
+      <Paragrafo>Esqueceu sua senha?</Paragrafo>
+      <ParagrafoCadastro>Ainda não tem conta?
+        <LinkCustomizado to="/cadastro">Faça seu cadastro!</LinkCustomizado>
+      </ParagrafoCadastro>
+    </>
+  )
 }
