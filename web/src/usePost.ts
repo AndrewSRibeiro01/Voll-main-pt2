@@ -11,7 +11,7 @@ export default function usePost() {
             'Content-Type': 'application/json'
         }
         if (token) {
-            headers['Autorization'] = `Bearer ${token}`;
+            headers['Authorization'] = `Bearer ${token}`;
         }
         try {
             const resposta = await fetch(`http://localhost:8080/${url}`, {
