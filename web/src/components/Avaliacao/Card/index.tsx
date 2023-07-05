@@ -12,7 +12,6 @@ const ContainerEstilizado = styled.div`
     color: var(--cinza);
     margin: 1em 2em 1em;
 `
-
 const ListaEstilizada = styled.ul`
     display: flex;
     align-items: center;
@@ -20,36 +19,26 @@ const ListaEstilizada = styled.ul`
     justify-content: space-between;
     padding: 0;
 `
-
-
 const ItemEstilizado = styled.li`
     list-style-type: none;
 `
-
-
 const ItemInformacoesEstilizado = styled(ItemEstilizado)`
     flex-grow: 1;
 `
-
-
 const ImagemEstilizada = styled.img`
     border-radius: 100%;
     width: 64px;
     object-fit: cover;
     height: 64px;
     border: 2px solid var(--azul-claro);
-    margin-right: 1em
+    margin-right: 1em;
 `
-
-
 const ParagrafoNomeEstilizado = styled.p`
     font-weight: 700;
 `
-
-
 const ParagrafoEstilizado = styled.p`
     margin: .5em 0;
-    font-size: 14px
+    font-size: 14px;
 `
 
 function Card({ profissional }: { profissional: IProfissional }) {
@@ -67,7 +56,7 @@ function Card({ profissional }: { profissional: IProfissional }) {
                 <ItemEstilizado>
                     <Rating
                         name="simple-controlled"
-                        value={profissional.nota}
+                        value={3}
                         readOnly={true}
                     />
                 </ItemEstilizado>

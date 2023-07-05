@@ -31,7 +31,7 @@ const corsOpts = {
   ]
 }
 
-app.use(cors(corsOpts))
+app.use(cors())
 
 app.use(express.json())
 
