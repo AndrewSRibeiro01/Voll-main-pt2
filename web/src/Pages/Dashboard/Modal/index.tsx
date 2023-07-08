@@ -25,21 +25,17 @@ const BoxCustomizado = styled(Box)`
 const Container = styled.div`
     text-align: left;
 `
-
 const ContainerSwitch = styled.div`
     text-align: center;
 `
-
 const TextoSwitch = styled.p`
     color: var(--cinza);
 `
-
 const BotaoCustomizado = styled(Botao)`
     width: 50%;
     display: block;
     margin: 0 auto;
 `
-
 const ContainerEndereco = styled.div`
     display: grid;
     grid-template-columns: 2fr 1fr;
